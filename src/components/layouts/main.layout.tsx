@@ -9,7 +9,7 @@ const MainLayout: React.FunctionComponent<MainLayoutProps> = (props) => {
   const { children } = props;
 
   return (
-    <div css={tw`max-w-screen-8xl px-24 py-8 mx-auto`}>
+    <div css={tw`relative max-w-screen-8xl px-24 pb-8 mx-auto`}>
       <NavBar />
       {children}
       <Footer />

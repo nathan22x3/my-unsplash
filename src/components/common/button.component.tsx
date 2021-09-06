@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import { ButtonHTMLAttributes } from 'react';
 import tw, { TwStyle } from 'twin.macro';
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string;
   size?: ButtonSize;
   variant?: ButtonVariant;
@@ -31,17 +32,18 @@ const buttonVariants: Record<ButtonVariant, TwStyle> = {
 };
 
 const Button: React.FunctionComponent<ButtonProps> = (props) => {
-  const { label, size, variant, transparent, disabledShadow } = props;
+  const { label, size, variant, transparent, disabledShadow, onClick } = props;
 
   return (
     <button
       className={!disabledShadow ? 'with-inherit-shadow' : ''}
       css={[
-        tw`relative px-4 py-3 border border-transparent rounded-xl text-sm font-noto-sans duration-200`,
+        tw`relative z-10 px-4 py-3 border border-transparent rounded-xl text-sm font-noto-sans duration-200`,
         buttonSizes[size as ButtonSize],
         buttonVariants[variant as ButtonVariant],
         transparent && tw`!bg-transparent`,
       ]}
+      {...{ onClick }}
     >
       <span>{label}</span>
     </button>

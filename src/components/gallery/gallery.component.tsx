@@ -12,7 +12,7 @@ const Gallery: React.FunctionComponent<GalleryProps> = (props) => {
       breakpointCols={3}
       className="masonry"
       columnClassName="masonry-column"
-      css={tw`my-16`}
+      css={tw`my-12`}
     >
       {children}
     </Masonry>

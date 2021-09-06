@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply font-noto-sans font-medium;
+    @apply font-noto-sans font-medium antialiased;
   }
 
   .masonry {
@@ -15,6 +15,14 @@
     &-column {
       @apply flex flex-col gap-y-10;
     }
+  }
+
+  .line-clamp {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
   }
 
   .with-inherit-shadow {
@@ -27,13 +35,5 @@
         @apply blur-sm;
       }
     }
-  }
-
-  .line-clamp {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
   }
 }
