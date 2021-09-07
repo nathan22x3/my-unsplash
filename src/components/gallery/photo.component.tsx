@@ -1,4 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import photoApi from 'apis/photo.api';
+import { useAppDispatch } from 'app/hooks';
+import { deletePhotoById } from 'app/photo-slice';
 import Button from 'components/common/button.component';
 import Input from 'components/common/input.component';
 import Modal from 'components/common/modal.component';
@@ -10,8 +13,9 @@ import { disableScrolling, enableScrolling } from 'utils/browser.util';
 export interface PhotoProps extends IPhoto {}
 
 const Photo: React.FunctionComponent<PhotoProps> = (props) => {
-  const { label, url } = props;
+  const { _id, label, url } = props;
 
+  const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -22,6 +26,17 @@ const Photo: React.FunctionComponent<PhotoProps> = (props) => {
   const handleCloseModal = () => {
     enableScrolling();
     setOpenModal(false);
+  };
+
+  const handleDeletePhoto: React.MouseEventHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      await photoApi.deleteById(_id);
+      dispatch(deletePhotoById(_id));
+    } catch (error) {
+      console.error((error as Error).message);
+    }
   };
 
   return (
@@ -54,7 +69,7 @@ const Photo: React.FunctionComponent<PhotoProps> = (props) => {
             >
               Cancel
             </span>
-            <Button label="Delete" variant="solid-danger" />
+            <Button label="Delete" variant="solid-danger" onClick={handleDeletePhoto} />
           </div>
         </form>
       </Modal>

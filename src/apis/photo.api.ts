@@ -3,16 +3,16 @@ import { Photo } from 'interfaces/photo.interface';
 
 const photoApi = {
   getAll: async (): Promise<Array<Photo>> => {
-    const url = 'photos/all';
+    const url = '/photos/all';
     return await axiosClient.get(url);
   },
   addNew: async (data: Photo): Promise<Photo> => {
-    const url = 'photos/add';
-    try {
-      return await axiosClient.post(url, data);
-    } catch (error) {
-      throw new Error(error as string).message;
-    }
+    const url = '/photos/add';
+    return await axiosClient.post(url, data);
+  },
+  deleteById: async (id: string): Promise<Photo> => {
+    const url = `/photos/delete/${id}`;
+    return await axiosClient.delete(url);
   },
 };
 

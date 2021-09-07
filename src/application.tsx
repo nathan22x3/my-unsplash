@@ -1,23 +1,20 @@
-import photoApi from 'apis/photo.api';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { fetchAllPhotos, selectPhotos } from 'app/photo-slice';
 import Gallery from 'components/gallery/gallery.component';
 import Photo from 'components/gallery/photo.component';
 import MainLayout from 'components/layouts/main.layout';
-import { Photo as IPhoto } from 'interfaces/photo.interface';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export interface ApplicationProps {}
 
 const Application: React.FunctionComponent<ApplicationProps> = () => {
-  const [photos, setPhotos] = useState<Array<IPhoto>>([]);
+  const photos = useAppSelector(selectPhotos);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    (async () => {
-      const res = await photoApi.getAll();
-      setPhotos(res);
-    })();
+    dispatch(fetchAllPhotos());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(photos);
 
   return (
     <MainLayout>

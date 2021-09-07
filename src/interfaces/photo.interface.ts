@@ -1,5 +1,6 @@
 export interface Photo {
-  _id?: string;
+  _id: string;
   label: string;
   url: string;
+  createdAt?: number;
 }

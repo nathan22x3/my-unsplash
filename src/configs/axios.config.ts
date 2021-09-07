@@ -20,7 +20,7 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    throw new Error(error).message;
+    throw new Error(error);
   }
 );
 

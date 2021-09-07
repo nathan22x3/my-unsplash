@@ -1,5 +1,5 @@
-import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 /** @jsxImportSource @emotion/react */
+import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import tw from 'twin.macro';
 
 export interface SearchInputProps {}

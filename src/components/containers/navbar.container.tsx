@@ -1,4 +1,7 @@
+/** @jsxImportSource @emotion/react */
 import photoApi from 'apis/photo.api';
+import { useAppDispatch } from 'app/hooks';
+import { addNewPhoto } from 'app/photo-slice';
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import Button from 'components/common/button.component';
 import Input from 'components/common/input.component';
@@ -6,13 +9,13 @@ import Modal from 'components/common/modal.component';
 import SearchInput from 'components/common/search-input.component';
 import { Photo } from 'interfaces/photo.interface';
 import { useReducer, useState } from 'react';
-/** @jsxImportSource @emotion/react */
 import tw from 'twin.macro';
 import { disableScrolling, enableScrolling } from 'utils/browser.util';
 
 export interface NavBarProps {}
 
 const NavBar: React.FunctionComponent<NavBarProps> = () => {
+  const dispatch = useAppDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [photo, setPhoto] = useReducer(
     (state: Photo, newState: { [key in keyof Photo]?: string }) =>
@@ -42,11 +45,12 @@ const NavBar: React.FunctionComponent<NavBarProps> = () => {
     e.preventDefault();
 
     try {
-      await photoApi.addNew(photo);
+      const newPhoto = await photoApi.addNew(photo);
+      dispatch(addNewPhoto(newPhoto));
       setPhoto({ label: '', url: '' });
       handleCloseModal();
     } catch (error) {
-      console.error(error);
+      console.error((error as Error).message);
     }
   };
 
