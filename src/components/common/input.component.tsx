@@ -8,7 +8,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input: React.FunctionComponent<InputProps> = (props) => {
-  const { id, label } = props;
+  const { id, label, onChange } = props;
 
   return (
     <div css={tw`flex flex-col gap-y-2`}>
@@ -16,7 +16,7 @@ const Input: React.FunctionComponent<InputProps> = (props) => {
         {label}
       </label>
       <input
-        {...{ id }}
+        {...{ id, onChange }}
         {...props}
         css={tw`p-4 border border-gray-500 rounded-xl outline-none text-sm placeholder-gray-200`}
       />

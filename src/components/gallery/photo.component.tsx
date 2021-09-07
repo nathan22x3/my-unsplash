@@ -2,17 +2,15 @@
 import Button from 'components/common/button.component';
 import Input from 'components/common/input.component';
 import Modal from 'components/common/modal.component';
+import { Photo as IPhoto } from 'interfaces/photo.interface';
 import { useState } from 'react';
 import tw from 'twin.macro';
-import { disableScrolling, enableScrolling } from 'utils/window.util';
+import { disableScrolling, enableScrolling } from 'utils/browser.util';
 
-export interface ImageProps {
-  src: string;
-  alt: string;
-}
+export interface PhotoProps extends IPhoto {}
 
-const Image: React.FunctionComponent<ImageProps> = (props) => {
-  const { src, alt } = props;
+const Photo: React.FunctionComponent<PhotoProps> = (props) => {
+  const { label, url } = props;
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -28,7 +26,7 @@ const Image: React.FunctionComponent<ImageProps> = (props) => {
 
   return (
     <div className="group" css={tw`relative overflow-hidden rounded-2xl`}>
-      <img {...{ src, alt }} draggable="false" css={tw`select-none`} />
+      <img src={url} alt={label} draggable="false" css={tw`select-none`} />
       <div
         css={tw`absolute inset-0 flex flex-col justify-between items-end pt-5 pr-5 pb-8 pl-6 bg-black bg-opacity-50 opacity-0 duration-200 group-hover:opacity-100`}
       >
@@ -43,7 +41,7 @@ const Image: React.FunctionComponent<ImageProps> = (props) => {
           className="line-clamp"
           css={tw`self-start max-w-[25ch] font-bold text-lg text-white select-none`}
         >
-          Morbi consequat lectus non orci maximus on orci maximus on orci maximus on orci maximus
+          {label}
         </span>
       </div>
       <Modal title="Are you sure?" show={openModal} onCloseModal={handleCloseModal}>
@@ -64,4 +62,4 @@ const Image: React.FunctionComponent<ImageProps> = (props) => {
   );
 };
 
-export default Image;
+export default Photo;
