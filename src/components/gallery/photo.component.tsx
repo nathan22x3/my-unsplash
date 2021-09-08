@@ -33,6 +33,7 @@ const Photo: React.FunctionComponent<PhotoProps> = (props) => {
 
     try {
       await photoApi.deleteById(_id);
+      handleCloseModal();
       dispatch(deletePhotoById(_id));
     } catch (error) {
       console.error((error as Error).message);

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { fetchAllPhotos, selectPhotos } from 'app/photo-slice';
+import { fetchWithLimit, selectPhotos } from 'app/photo-slice';
 import Gallery from 'components/gallery/gallery.component';
 import Photo from 'components/gallery/photo.component';
 import MainLayout from 'components/layouts/main.layout';
@@ -12,14 +12,14 @@ const Application: React.FunctionComponent<ApplicationProps> = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllPhotos());
+    dispatch(fetchWithLimit({}));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <MainLayout>
       <Gallery>
-        {photos.map((photo) => (
+        {photos?.map((photo) => (
           <Photo key={photo._id} {...photo} />
         ))}
       </Gallery>

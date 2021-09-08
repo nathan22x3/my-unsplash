@@ -1,22 +1,26 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import photoApi from 'apis/photo.api';
+import photoApi, { PhotosResponse } from 'apis/photo.api';
 import { RootState } from 'app/store';
 import { Photo } from 'interfaces/photo.interface';
 
 type SliceState = 'idle' | 'pending' | 'finished';
 
-interface PhotoSlice {
+interface PhotoSlice extends PhotosResponse {
   state: SliceState;
-  data: Array<Photo>;
 }
 
-export const fetchAllPhotos = createAsyncThunk('photos/fetchAll', async () => {
-  return await photoApi.getAll();
+export const fetchWithLimit = createAsyncThunk<
+  PhotosResponse,
+  { limit?: number; next_cursor?: string }
+>('photos/fetchWithLimit', async ({ limit, next_cursor }) => {
+  return await photoApi.getWithLimit(limit, next_cursor);
 });
 
 const initialState: PhotoSlice = {
   state: 'idle',
   data: [],
+  limit: 10,
+  next_cursor: '',
 };
 
 const photoSlice = createSlice({
@@ -35,17 +39,21 @@ const photoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllPhotos.pending, (state) => {
+      .addCase(fetchWithLimit.pending, (state) => {
         state.state = 'pending';
       })
-      .addCase(fetchAllPhotos.fulfilled, (state, action) => {
+      .addCase(fetchWithLimit.fulfilled, (state, action) => {
         state.state = 'finished';
-        state.data = action.payload;
+        state.data.push(...action.payload.data);
+        state.limit = action.payload.limit;
+        state.next_cursor = action.payload.next_cursor;
       });
   },
 });
 
 export const selectPhotos = (state: RootState) => state.photo.data;
+export const selectLimit = (state: RootState) => state.photo.limit;
+export const selectNextCursor = (state: RootState) => state.photo.next_cursor;
 
 export const { addNewPhoto, deletePhotoById } = photoSlice.actions;
 
