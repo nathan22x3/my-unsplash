@@ -55,7 +55,9 @@ const NavBar: React.FunctionComponent<NavBarProps> = () => {
   };
 
   return (
-    <nav css={tw`sticky z-20 top-0 flex items-center justify-between py-8 bg-white`}>
+    <nav
+      css={tw`sticky z-20 top-0 flex items-center justify-between w-full max-w-screen-8xl py-8 bg-white`}
+    >
       <div css={tw`flex items-center gap-x-4`}>
         <Logo />
         <SearchInput />

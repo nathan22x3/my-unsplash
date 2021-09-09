@@ -45,7 +45,7 @@ const photoSlice = createSlice({
       .addCase(fetchWithLimit.fulfilled, (state, action) => {
         state.state = 'finished';
         state.data.push(...action.payload.data);
-        state.limit = action.payload.limit;
+        state.limit = +action.payload.limit;
         state.next_cursor = action.payload.next_cursor;
       });
   },

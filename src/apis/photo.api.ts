@@ -9,6 +9,8 @@ export type PhotosResponse = {
 
 const photoApi = {
   getWithLimit: async (limit: number = 10, next_cursor?: string): Promise<PhotosResponse> => {
+    // if (next_cursor === '') return Promise.reject('There is no more to fetch');
+
     const url = `/photos`;
     return await axiosClient.get(url, {
       params: {
