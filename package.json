@@ -23,7 +23,7 @@
   "scripts": {
     "start": "craco start",
     "build": "GENERATE_SOURCEMAP=false REACT_APP_LOG_LEVEL=info craco build",
-    "test": "craco test",
+    "test": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
