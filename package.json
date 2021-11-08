@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.3.0",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.4",
+    "cypress": "^8.7.0",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,7 +23,7 @@
   "scripts": {
     "start": "craco start",
     "build": "GENERATE_SOURCEMAP=false REACT_APP_LOG_LEVEL=info craco build",
-    "test": "craco test",
+    "test": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
